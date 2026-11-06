@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agentic Newsroom</title>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="logo">◆</span>
+        <div>
+          <h1>Agentic Newsroom</h1>
+          <p>AI news → Facebook, TikTok &amp; Instagram content</p>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <span id="key-status" class="pill"></span>
+        <button id="open-settings" class="btn ghost">⚙ Settings</button>
+      </div>
+    </header>
+
+    <main>
+      <ol class="pipeline" id="pipeline">
+        <li data-step="1">Research</li>
+        <li data-step="2">Human review</li>
+        <li data-step="3">Platform agents</li>
+      </ol>
+
+      <!-- STEP 1 -->
+      <section class="card" id="step-research">
+        <div class="card-head">
+          <div>
+            <h2>1 · Research Agent</h2>
+            <p class="muted">Searches the latest AI news with SerpAPI and pitches 10 content ideas.</p>
+          </div>
+          <button id="run-research" class="btn primary">Run Research Agent</button>
+        </div>
+        <div id="research-status" class="status" hidden></div>
+      </section>
+
+      <!-- STEP 2 -->
+      <section class="card" id="step-review" hidden>
+        <div class="card-head">
+          <div>
+            <h2>2 · Pick your top 3</h2>
+            <p class="muted">Select exactly 3 ideas. Not happy? Give feedback and regenerate.</p>
+          </div>
+          <span id="selection-count" class="pill">0 / 3 selected</span>
+        </div>
+        <div id="ideas" class="ideas"></div>
+        <div class="review-actions">
+          <label class="field">
+            <span>Feedback for the Research Agent (optional)</span>
+            <textarea id="research-feedback" rows="2" placeholder="e.g. More practical how-to angles, less funding news"></textarea>
+          </label>
+          <button id="regenerate" class="btn ghost">↻ Regenerate ideas with feedback</button>
+          <label class="field">
+            <span>Notes for the platform agents (optional)</span>
+            <textarea id="platform-notes" rows="2" placeholder="e.g. Brand voice: witty but trustworthy. Mention our handle @mybrand"></textarea>
+          </label>
+          <button id="approve" class="btn primary" disabled>✓ Approve &amp; create content</button>
+        </div>
+      </section>
+
+      <!-- STEP 3 -->
+      <section class="card" id="step-content" hidden>
+        <div class="card-head">
+          <div>
+            <h2>3 · Platform Agents</h2>
+            <p class="muted">Facebook, TikTok and Instagram agents run in parallel on your 3 approved ideas.</p>
+          </div>
+          <button id="download" class="btn ghost" disabled>⬇ Download Markdown</button>
+        </div>
+        <div class="tabs" id="tabs"></div>
+        <div id="platform-output"></div>
+      </section>
+    </main>
+
+    <dialog id="settings">
+      <form method="dialog" id="settings-form">
+        <h2>Settings</h2>
+        <p class="muted small">Keys stay in your browser and are only sent to OpenAI and SerpAPI through this app's local proxy.</p>
+        <label class="field">
+          <span>OpenAI API key</span>
+          <input type="password" name="openaiKey" placeholder="sk-..." autocomplete="off" />
+        </label>
+        <label class="field">
+          <span>OpenAI model</span>
+          <input type="text" name="model" placeholder="gpt-6.1-sol" />
+        </label>
+        <label class="field">
+          <span>SerpAPI key</span>
+          <input type="password" name="serpKey" placeholder="your SerpAPI key" autocomplete="off" />
+        </label>
+        <label class="check">
+          <input type="checkbox" name="remember" />
+          <span>Remember keys on this device (localStorage)</span>
+        </label>
+        <div class="dialog-actions">
+          <button value="cancel" class="btn ghost" formnovalidate>Cancel</button>
+          <button value="save" class="btn primary">Save</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
